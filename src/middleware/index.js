@@ -28,4 +28,20 @@ exports.checkPass = async (req,res,next) => {
         console.log(error);
         res.send({error})
     }
+};
+exports.changePass = async (req,res,next) => {
+    try{
+        req.body.password = await bcrypt.hash(req.body.password,8);
+        await User.findOneAndUpdate({
+            username:req.body.username,
+        },
+        {$set:{
+            password:req.body.password,
+        }});
+        next();
+    }
+    catch(error){
+        console.log(error);
+        res.send({error});
+    }
 }

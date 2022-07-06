@@ -25,3 +25,13 @@ exports.login = async (req, res) => {
       res.send({ error });
     }
   };
+
+exports.changed = async (req,res) => {
+    try{
+        console.log(req.body);
+        res.end();
+    } catch(error){
+        console.log(error);
+        res.send({error});
+    }
+}
