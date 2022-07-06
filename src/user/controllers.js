@@ -1,3 +1,4 @@
+const { findOneAndDelete } = require("./model");
 const User = require("./model");
 
 exports.signUp = async(req, res) => {
@@ -29,6 +30,18 @@ exports.login = async (req, res) => {
 exports.changed = async (req,res) => {
     try{
         console.log(req.body);
+        res.end();
+    } catch(error){
+        console.log(error);
+        res.send({error});
+    }
+}
+
+exports.deleteUser = async (req,res) => {
+    try{
+        await User.findOneAndDelete({
+            username:req.params.username,
+        });
         res.end();
     } catch(error){
         console.log(error);
