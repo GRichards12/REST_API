@@ -1,11 +1,11 @@
 const { findOneAndDelete } = require("./model");
 const User = require("./model");
 
-exports.signUp = async(req, res) => {
-    try{
-        const newUser = await User.create(req.body); //req.body has k/v pairs that match 
-        res.send({User:newUser});
-    } catch(error) {
+exports.signUp = async(req, res) => { 
+    try{ 
+        const newUser = await User.create(req.body); 
+        res.send({User:newUser}); 
+    } catch(error) { 
         console.log(error);
         res.send({error});
     }
@@ -13,8 +13,8 @@ exports.signUp = async(req, res) => {
 
 exports.login = async (req, res) => {
     try {
-      const user = await User.findOne({
-        username: req.body.username,
+      const user = await User.findOne({ 
+        username: req.body.username, 
       });
       if (!user) {
         throw new Error("login failed");
@@ -41,8 +41,8 @@ exports.getEmail = async (req,res) => {
 
 exports.deleteUser = async (req,res) => {
     try{
-        await User.findOneAndDelete({
-            username:req.params.username,
+        await User.findOneAndDelete({ 
+            username:req.params.username, 
         });
         res.end();
     } catch(error){
@@ -62,6 +62,16 @@ exports.changePass = async (req,res) => {
         res.end();
     }
     catch(error){
+        console.log(error);
+        res.send({error});
+    }
+}
+
+exports.displayUsers = async (req,res) => {
+    try{
+        res.send(await User.find());
+        
+    }catch(error){
         console.log(error);
         res.send({error});
     }
