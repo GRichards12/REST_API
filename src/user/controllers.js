@@ -27,10 +27,12 @@ exports.login = async (req, res) => {
     }
   };
 
-exports.changed = async (req,res) => {
+exports.getEmail = async (req,res) => {
     try{
-        console.log(req.body);
-        res.end();
+        const user = await User.findOne({
+            username:req.params.username
+        });
+        res.send(user.email);
     } catch(error){
         console.log(error);
         res.send({error});
