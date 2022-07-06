@@ -48,3 +48,19 @@ exports.deleteUser = async (req,res) => {
         res.send({error});
     }
 }
+
+exports.changePass = async (req,res) => {
+    try{
+        await User.findOneAndUpdate({
+            username:req.body.username,
+        },
+        {$set:{
+            password:req.body.password,
+        }});
+        res.end();
+    }
+    catch(error){
+        console.log(error);
+        res.send({error});
+    }
+}
