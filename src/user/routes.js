@@ -9,5 +9,6 @@ userRouter.post("/changepass", hashPass, changePass);
 userRouter.delete("/user/:username",deleteUser);
 userRouter.get("/user/:username", getEmail)
 userRouter.get("/users",displayUsers);
+userRouter.get("/token", tokenCheck, login);
 
 module.exports = userRouter;

@@ -43,3 +43,17 @@ exports.checkPass = async (req,res,next) => {
 //         res.send({error});
 //     }
 // }
+
+exports.tokenCheck = async (req, res, next) => {
+    try {
+      const decodedToken = jwt.verify(
+        req.header("Authorization"),
+        process.env.SECRET
+      );
+      req.user = await User.findById(decodedToken.id);
+      next();
+    } catch (error) {
+      console.log(error);
+      res.send({ error });
+    }
+  };
