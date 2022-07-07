@@ -14,8 +14,7 @@ exports.hashPass = async (req,res,next) => {
 exports.checkPass = async (req,res,next) => {
     try{
         const userCheck = await User.findOne({ 
-            username: req.body.username, 
-          console.log(userCheck);
+            username: req.body.username,})
         const check = await bcrypt.compare(req.body.password, userCheck.password); 
         if(check){ 
             next(); 

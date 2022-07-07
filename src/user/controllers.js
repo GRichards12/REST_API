@@ -13,9 +13,9 @@ exports.signUp = async(req, res) => {
 
 exports.login = async (req, res) => {
     try {
-      const user = await User.findOne({ 
+      const user = await User.findOneAndUpdate({ 
         username: req.body.username, 
-      });
+      },{signedIn:true});
       if (!user) {
         throw new Error("login failed");
       } else {
@@ -52,7 +52,8 @@ exports.deleteUser = async (req,res) => {
 }
 
 exports.changePass = async (req,res) => {
-    try{
+    try{const user = await User.findOne({username:req.body.username});
+        if(user.signedIn){
         await User.findOneAndUpdate({
             username:req.body.username,
         },
@@ -60,7 +61,7 @@ exports.changePass = async (req,res) => {
             password:req.body.password,
         }});
         res.end();
-    }
+    }else{throw new Error("not signed in");res.end();}}
     catch(error){
         console.log(error);
         res.send({error});
