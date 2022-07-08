@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 exports.signUp = async(req, res) => { 
     try{ 
         const newUser = await User.create(req.body); 
-        // const token = jwt.sign({ id: newUser._id }, process.env.SECRET); 
-        res.send({User:newUser}); 
+        const token = jwt.sign({ id: newUser._id }, process.env.SECRET); 
+        res.send({User:newUser,token}); 
     } catch(error) { 
         console.log(error);
         res.send({error});
