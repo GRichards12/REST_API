@@ -1,9 +1,11 @@
 const { findOneAndDelete } = require("./model");
 const User = require("./model");
+const jwt = require("jsonwebtoken");
 
 exports.signUp = async(req, res) => { 
     try{ 
         const newUser = await User.create(req.body); 
+        // const token = jwt.sign({ id: newUser._id }, process.env.SECRET); 
         res.send({User:newUser}); 
     } catch(error) { 
         console.log(error);
